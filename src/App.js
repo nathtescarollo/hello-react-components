@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { ListaInscritos } from "./Components/ListaInscritos";
+import "./App.css";
 
 function App() {
+  const [alunos, setAlunos] = useState([]);
+  const [novo, setNovo] = useState("");
+
+  const processarOnClick = () => {
+    setAlunos([...alunos, novo]);
+    setNovo("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ListaInscritos alunos={alunos}>
+        Aguardando o primeiro aluno ser cadastrado
+      </ListaInscritos>
+      Novo aluno:{" "}
+      <input
+        type="text"
+        value={novo}
+        onChange={(event) => setNovo(event.target.value)}
+      />
+      <button onClick={processarOnClick}>Adicionar Aluno</button>
     </div>
   );
 }
